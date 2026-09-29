@@ -1,0 +1,65 @@
+:root{--paper:#ffffff;--ink:#000000;--text:#2f3a4c;--muted:#5f6b80;--blue:#2150f5;--blue-deep:#1235b8;--wash:#eef2ff;--rule:#dbe1ec;--code:#f5f7fc}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--text);font:17px/1.65 "Schibsted Grotesk",system-ui,-apple-system,"Segoe UI",sans-serif}
+a{color:var(--blue);text-underline-offset:3px;text-decoration-thickness:1px}
+a:hover{color:var(--blue-deep);text-decoration-thickness:2px}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--blue);outline-offset:2px;border-radius:2px}
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr);max-width:1180px;margin:0 auto}
+.side{position:sticky;top:0;align-self:start;height:100vh;overflow-y:auto;padding:32px 24px 40px;border-right:1px solid var(--rule)}
+.brand{display:block;color:var(--ink);text-decoration:none;font-weight:800;font-size:18px;line-height:1.25;margin-bottom:28px}
+.brand .sl{color:var(--blue);font-size:30px;line-height:0;margin-right:2px;vertical-align:-3px}
+.nav-group{margin:22px 0 6px;font-size:13px;font-weight:700;color:var(--ink)}
+.side ul{list-style:none;margin:0;padding:0}
+.side li a{display:block;padding:3px 0;color:var(--muted);text-decoration:none;font-size:15px}
+.side li a .sl{color:var(--rule);margin-right:1px;font-weight:700}
+.side li a:hover{color:var(--ink)}
+.side li a:hover .sl,.side li a[aria-current] .sl{color:var(--blue)}
+.side li a[aria-current]{color:var(--ink);font-weight:700}
+.mobile-nav{display:none}
+main{padding:56px 56px 80px;min-width:0}
+.content{max-width:72ch}
+.path{font-weight:800;color:var(--ink);font-size:clamp(44px,7vw,76px);line-height:1;letter-spacing:-.03em;margin:0 0 14px;word-break:break-word}
+.path .sl{color:var(--blue)}
+h1{font-size:28px;line-height:1.2;color:var(--ink);font-weight:700;margin:0 0 18px;letter-spacing:-.01em}
+h2{font-size:24px;line-height:1.25;color:var(--ink);font-weight:800;margin:52px 0 12px;letter-spacing:-.01em}
+h3{font-size:18px;color:var(--ink);margin:30px 0 6px}
+p,li{max-width:72ch}
+strong{color:var(--ink)}
+code{font-family:"JetBrains Mono",ui-monospace,Menlo,monospace;font-size:.86em;background:var(--code);padding:.1em .35em;border-radius:4px}
+pre{position:relative;background:var(--wash);border:1px solid #d3dcfb;border-radius:10px;padding:52px 20px 20px;overflow-x:auto;margin:18px 0 24px}
+pre code{background:none;padding:0;font-size:13.5px;line-height:1.6;color:#15213a;white-space:pre-wrap;word-break:break-word}
+.copy{position:absolute;top:10px;right:10px;font:600 13px/1 "Schibsted Grotesk",system-ui,sans-serif;background:var(--paper);color:var(--blue);border:1px solid #c5d1fa;border-radius:6px;padding:7px 11px;cursor:pointer}
+.copy:hover{background:var(--blue);color:#fff;border-color:var(--blue)}
+.table-wrap{overflow-x:auto;margin:18px 0 24px}
+table{border-collapse:collapse;width:100%;font-size:15px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px 10px 0;border-bottom:1px solid var(--rule)}
+th{color:var(--ink);font-weight:700;border-bottom:2px solid var(--ink)}
+hr{border:0;border-top:1px solid var(--rule);margin:40px 0}
+.lede{font-size:20px;line-height:1.55;color:var(--text);max-width:60ch;margin:0 0 8px}
+.hero{padding-bottom:34px;border-bottom:1px solid var(--rule);margin-bottom:10px}
+.hero h1{font-size:clamp(34px,5vw,54px);line-height:1.06;letter-spacing:-.03em;font-weight:800;max-width:17ch;margin-bottom:20px}
+.dir{list-style:none;padding:0;margin:8px 0 0;border-top:2px solid var(--ink)}
+.dir li{max-width:none;border-bottom:1px solid var(--rule)}
+.dir a{display:grid;grid-template-columns:minmax(150px,220px) 1fr;gap:4px 24px;padding:14px 0;text-decoration:none;color:var(--text)}
+.dir .slug{font-weight:800;font-size:20px;color:var(--ink);letter-spacing:-.01em}
+.dir .slug .sl{color:var(--blue)}
+.dir .desc{font-size:15px;color:var(--muted);align-self:center}
+.dir a:hover .slug{color:var(--blue)}
+.dir a:hover .desc{color:var(--text)}
+.meta{margin-top:56px;padding-top:20px;border-top:1px solid var(--rule);font-size:14px;color:var(--muted)}
+.meta p{margin:4px 0}
+@media (max-width:860px){
+ .shell{display:block}
+ .side{display:none}
+ .mobile-nav{display:block;border-bottom:1px solid var(--rule);padding:14px 20px;position:sticky;top:0;background:var(--paper);z-index:5}
+ .mobile-nav summary{cursor:pointer;font-weight:800;color:var(--ink);list-style:none}
+ .mobile-nav summary .sl{color:var(--blue)}
+ .mobile-nav ul{list-style:none;padding:0;margin:0}
+ .mobile-nav li a{display:block;padding:5px 0;color:var(--text);text-decoration:none}
+ .mobile-nav li a .sl{color:var(--blue)}
+ .mobile-nav .nav-group{margin-top:16px}
+ main{padding:32px 20px 64px}
+ .dir a{grid-template-columns:1fr}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}

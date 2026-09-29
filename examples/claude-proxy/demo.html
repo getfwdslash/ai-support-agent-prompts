@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude proxy demo</title>
+<style>
+  body { font-family: system-ui, sans-serif; max-width: 520px; margin: 40px auto; padding: 0 16px; }
+  #log { border: 1px solid #ccd; border-radius: 8px; padding: 12px; min-height: 240px; margin-bottom: 12px; }
+  .user { text-align: right; color: #1f3fd6; margin: 8px 0; }
+  .assistant { margin: 8px 0; white-space: pre-wrap; }
+  form { display: flex; gap: 8px; }
+  input { flex: 1; padding: 10px; }
+</style>
+</head>
+<body>
+<h1>Support chat demo</h1>
+<div id="log"></div>
+<form id="f"><input id="q" placeholder="Ask a question" autocomplete="off"><button>Send</button></form>
+<script>
+  // Point this at your deployed Worker. No API key here, ever.
+  const ENDPOINT = "https://claude-support-proxy.YOUR-SUBDOMAIN.workers.dev";
+  const history = [];
+  const log = document.getElementById("log");
+  const add = (role, text) => {
+    const div = document.createElement("div");
+    div.className = role;
+    div.textContent = text;
+    log.appendChild(div);
+  };
+  document.getElementById("f").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const input = document.getElementById("q");
+    const text = input.value.trim();
+    if (!text) return;
+    input.value = "";
+    add("user", text);
+    history.push({ role: "user", content: text });
+    try {
+      const res = await fetch(ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ messages: history }),
+      });
+      const data = await res.json();
+      const reply = data.reply || "Something went wrong. Please try again.";
+      history.push({ role: "assistant", content: reply });
+      add("assistant", reply);
+    } catch {
+      add("assistant", "Couldn't reach the chat service. Check the endpoint URL.");
+    }
+  });
+</script>
+</body>
+</html>

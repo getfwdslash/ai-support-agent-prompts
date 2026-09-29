@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Claude API proxy for website chat | AI Support Agent Prompts</title>
+<meta name="description" content="A minimal Cloudflare Worker that lets a website chat widget talk to Claude without exposing your Anthropic API key.">
+<link rel="canonical" href="https://fwdslash.github.io/ai-support-agent-prompts/examples/claude-proxy/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Claude API proxy for website chat | AI Support Agent Prompts">
+<meta property="og:description" content="A minimal Cloudflare Worker that lets a website chat widget talk to Claude without exposing your Anthropic API key.">
+<meta property="og:url" content="https://fwdslash.github.io/ai-support-agent-prompts/examples/claude-proxy/index.html">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600&family=Schibsted+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../assets/site.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='7' fill='%232150f5'/><path d='M20 6 12 26' stroke='white' stroke-width='4' stroke-linecap='round'/></svg>">
+</head>
+<body>
+<details class="mobile-nav"><summary><span class="sl">/</span> Menu</summary><a class="brand" href="../../index.html">AI Support Agent Prompts</a><p class="nav-group">Industries</p><ul><li><a href="../../industries/banking.html"><span class="sl">/</span>banking</a></li><li><a href="../../industries/ecommerce.html"><span class="sl">/</span>ecommerce</a></li><li><a href="../../industries/education.html"><span class="sl">/</span>education</a></li><li><a href="../../industries/fitness.html"><span class="sl">/</span>fitness</a></li><li><a href="../../industries/healthcare.html"><span class="sl">/</span>healthcare</a></li><li><a href="../../industries/hospitality.html"><span class="sl">/</span>hospitality</a></li><li><a href="../../industries/hr.html"><span class="sl">/</span>hr</a></li><li><a href="../../industries/insurance.html"><span class="sl">/</span>insurance</a></li><li><a href="../../industries/law-firms.html"><span class="sl">/</span>law-firms</a></li><li><a href="../../industries/supply-chain.html"><span class="sl">/</span>supply-chain</a></li></ul><p class="nav-group">Platforms</p><ul><li><a href="../../platforms/bigcommerce.html"><span class="sl">/</span>bigcommerce</a></li><li><a href="../../platforms/framer.html"><span class="sl">/</span>framer</a></li><li><a href="../../platforms/hubspot.html"><span class="sl">/</span>hubspot</a></li><li><a href="../../platforms/shopify.html"><span class="sl">/</span>shopify</a></li><li><a href="../../platforms/squarespace.html"><span class="sl">/</span>squarespace</a></li><li><a href="../../platforms/webflow.html"><span class="sl">/</span>webflow</a></li><li><a href="../../platforms/wix.html"><span class="sl">/</span>wix</a></li><li><a href="../../platforms/wordpress.html"><span class="sl">/</span>wordpress</a></li></ul><p class="nav-group">Guides</p><ul><li><a href="../../guides/prompt-anatomy.html"><span class="sl">/</span>prompt-anatomy</a></li><li><a href="../../handoff/human-escalation.html"><span class="sl">/</span>human-handoff</a></li><li><a href="../../examples/claude-proxy/index.html" aria-current="page"><span class="sl">/</span>claude-api-proxy</a></li><li><a href="../../CONTRIBUTING.html"><span class="sl">/</span>contributing</a></li></ul></details>
+<div class="shell">
+<aside class="side"><a class="brand" href="../../index.html"><span class="sl">/</span>AI Support Agent Prompts</a><p class="nav-group">Industries</p><ul><li><a href="../../industries/banking.html"><span class="sl">/</span>banking</a></li><li><a href="../../industries/ecommerce.html"><span class="sl">/</span>ecommerce</a></li><li><a href="../../industries/education.html"><span class="sl">/</span>education</a></li><li><a href="../../industries/fitness.html"><span class="sl">/</span>fitness</a></li><li><a href="../../industries/healthcare.html"><span class="sl">/</span>healthcare</a></li><li><a href="../../industries/hospitality.html"><span class="sl">/</span>hospitality</a></li><li><a href="../../industries/hr.html"><span class="sl">/</span>hr</a></li><li><a href="../../industries/insurance.html"><span class="sl">/</span>insurance</a></li><li><a href="../../industries/law-firms.html"><span class="sl">/</span>law-firms</a></li><li><a href="../../industries/supply-chain.html"><span class="sl">/</span>supply-chain</a></li></ul><p class="nav-group">Platforms</p><ul><li><a href="../../platforms/bigcommerce.html"><span class="sl">/</span>bigcommerce</a></li><li><a href="../../platforms/framer.html"><span class="sl">/</span>framer</a></li><li><a href="../../platforms/hubspot.html"><span class="sl">/</span>hubspot</a></li><li><a href="../../platforms/shopify.html"><span class="sl">/</span>shopify</a></li><li><a href="../../platforms/squarespace.html"><span class="sl">/</span>squarespace</a></li><li><a href="../../platforms/webflow.html"><span class="sl">/</span>webflow</a></li><li><a href="../../platforms/wix.html"><span class="sl">/</span>wix</a></li><li><a href="../../platforms/wordpress.html"><span class="sl">/</span>wordpress</a></li></ul><p class="nav-group">Guides</p><ul><li><a href="../../guides/prompt-anatomy.html"><span class="sl">/</span>prompt-anatomy</a></li><li><a href="../../handoff/human-escalation.html"><span class="sl">/</span>human-handoff</a></li><li><a href="../../examples/claude-proxy/index.html" aria-current="page"><span class="sl">/</span>claude-api-proxy</a></li><li><a href="../../CONTRIBUTING.html"><span class="sl">/</span>contributing</a></li></ul></aside>
+<main><div class="content">
+<p class="path" aria-hidden="true"><span class="sl">/</span>claude-api-proxy</p><h1>Claude API proxy for website chat</h1><p>A minimal Cloudflare Worker that lets a website chat widget talk to Claude without exposing your Anthropic API key.</p>
+<p>Anything you put in a website's custom code is visible in the page source. If an API key ends up there, anyone can copy it and spend your credits. This Worker keeps the key server-side: the browser sends messages to the Worker, the Worker adds the key and your system prompt, calls Claude, and returns only the reply text.</p>
+<h2 id="files">Files</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>worker.js</code></td>
+<td>The proxy: origin check, input limits, Claude API call</td>
+</tr>
+<tr>
+<td><code>wrangler.toml</code></td>
+<td>Config: model ID, allowed sites, system prompt</td>
+</tr>
+<tr>
+<td><code>demo.html</code></td>
+<td>A bare-bones chat page to test the Worker</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deploy">Deploy</h2>
+<ol>
+<li>Install Wrangler and log in: <code>npm install -g wrangler</code> then <code>wrangler login</code>.</li>
+<li>Edit <code>wrangler.toml</code>: set <code>MODEL</code> to a current model ID from Anthropic's models overview, set <code>ALLOWED_ORIGINS</code> to your site, and paste your system prompt from one of the <a href="../../index.html#industry-prompts">industry prompts</a>.</li>
+<li>Add your API key as a secret: <code>npx wrangler secret put ANTHROPIC_API_KEY</code>.</li>
+<li>Deploy: <code>npx wrangler deploy</code>.</li>
+<li>Put the Worker URL into <code>demo.html</code> and open it from an allowed origin to test.</li>
+</ol>
+<h2 id="what-this-doesnt-do">What this doesn't do</h2>
+<p>This is a starting point, not a product. Before putting it in front of real visitors you'll want:</p>
+<ul>
+<li><strong>Rate limiting</strong> per IP or session, so one visitor can't run up your bill. Cloudflare's rate limiting rules work well here.</li>
+<li><strong>Knowledge base retrieval.</strong> The Worker sends only the system prompt and the chat. To answer from your content, you need to retrieve relevant pages and add them to the request.</li>
+<li><strong>Streaming</strong>, so replies appear word by word.</li>
+<li><strong>Human handoff</strong> to your team. See <a href="../../handoff/human-escalation.html">human handoff patterns</a>.</li>
+<li><strong>Logging and analytics</strong> to see what visitors ask and where the agent fails.</li>
+</ul>
+<p>If you'd rather not build those, a no-code AI agent builder like <a href="https://www.fwdslash.ai">FwdSlash</a> handles retrieval, handoff to Slack, lead capture and analytics, and lets you choose Claude as the model. The trade-offs between both routes are covered in <a href="https://www.fwdslash.ai/blog/how-to-add-embed-claude-in-any-website">How to add or embed Claude in any website</a>.</p>
+<div class="meta">
+<p><a href="https://github.com/fwdslash/ai-support-agent-prompts/blob/main/examples/claude-proxy/README.md">View or edit this page on GitHub</a></p>
+<p>Open source under the MIT license. Maintained by <a href="https://www.fwdslash.ai">FwdSlash</a>, the no-code AI agent builder.</p>
+</div>
+</div></main>
+</div>
+<script src="../../assets/site.js"></script>
+</body>
+</html>

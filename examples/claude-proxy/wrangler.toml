@@ -1,0 +1,14 @@
+name = "claude-support-proxy"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+
+[vars]
+# Use a current model ID from Anthropic's models overview page.
+MODEL = "REPLACE_WITH_CURRENT_CLAUDE_MODEL_ID"
+# Comma-separated list of sites allowed to call this Worker.
+ALLOWED_ORIGINS = "https://www.example.com,https://example.com"
+# Paste one of the industry prompts here, with placeholders filled in.
+SYSTEM_PROMPT = "You are the virtual assistant for Example Co. Answer only from the knowledge base. Keep replies under 80 words."
+
+# The API key is a secret, not a var. Set it with:
+#   npx wrangler secret put ANTHROPIC_API_KEY
