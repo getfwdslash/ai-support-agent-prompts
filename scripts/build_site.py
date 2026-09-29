@@ -15,8 +15,8 @@ from datetime import date
 
 import markdown
 
-SITE_URL = "https://fwdslash-ai-agent-builder.github.io/ai-support-agent-prompts/"
-REPO_URL = "https://github.com/fwdslash-ai-agent-builder/ai-support-agent-prompts"
+SITE_URL = "https://getfwdslash.github.io/ai-support-agent-prompts/"
+REPO_URL = "https://github.com/getfwdslash/ai-support-agent-prompts"
 SITE_NAME = "AI Support Agent Prompts"
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

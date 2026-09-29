@@ -4,7 +4,7 @@ Copy-paste system prompts, guardrails and deployment guides for customer support
 
 Every prompt here is model-agnostic. It works with Claude, GPT, Gemini or any LLM that accepts a system prompt, whether you build the agent yourself on an API or in a no-code AI agent builder like [FwdSlash](https://www.fwdslash.ai).
 
-**Browse the site:** https://fwdslash-ai-agent-builder.github.io/ai-support-agent-prompts/
+**Browse the site:** https://getfwdslash.github.io/ai-support-agent-prompts/
 
 ## What's inside
 
